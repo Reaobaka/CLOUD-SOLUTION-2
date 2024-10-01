@@ -1,0 +1,388 @@
+﻿@model IEnumerable<PART2.Models.ProductsInfo>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        /* Your existing styles */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .category-filter {
+            align-items: flex-start;
+            margin: 0 20px;
+            margin-right: 800px;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+            .category-filter select {
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                background-color: white;
+                font-size: 16px;
+            }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            margin-right: 800px;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        .menu-items {
+            display: flex;
+        }
+
+        .menu-item {
+            margin-right: 2px;
+        }
+
+            .menu-item a {
+                color: black;
+                padding: 5px;
+                display: inline-block;
+                font-weight: bold;
+            }
+
+            .menu-item:last-child {
+                margin-right: 0;
+            }
+
+        .image-item {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            background-color: white;
+            padding: 5px;
+            max-width: 200px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 1;
+        }
+
+            .image-item img {
+                width: 200px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 5px;
+                transition: transform 0.3s ease;
+            }
+
+            .image-item:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .image-item img:hover {
+                transform: scale(1.03);
+            }
+
+            .image-item p {
+                margin: 5px 0;
+                font-size: 0.9rem;
+                color: #333;
+                font-weight: bold;
+            }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            background-color: beige;
+            color: black;
+            font-family: 'Times New Roman';
+            cursor: pointer;
+            border: black;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+                color: white;
+            }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+            .modal img {
+                width: 100px;
+                height: 75px;
+                object-fit: cover;
+                border-radius: 5px;
+                margin-right: 15px;
+            }
+
+        .modal-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+            .modal-content p {
+                margin: 0;
+            }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="file"], input[type="text"], input[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: beige;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+                color: white;
+            }
+    </style>
+    <script>
+        const products = {
+            1: { id: 1, description: 'Unisex Hoodie', image: 'https://cdna.lystit.com/photos/boohooman/a3624f80/boohooman-designer-black-Bonded-Scuba-Oversized-Hoodie.jpeg', price: 'R500.00' },
+            2: { id: 2, description: 'Mini-Party Dress', image: 'https://cdn-img.prettylittlething.com/f/c/7/6/fc76e455c57c9c86d2b71019e9417aeb1d908e9a_cme1638_2.jpg', price: 'R470.00' },
+            3: { id: 3, description: 'Silver Necklace', image: 'https://th.bing.com/th/id/OIP.FnTW59ievY6thUNqGSGEWgAAAA?rs=1&pid=ImgDetMain', price: 'R250.00' },
+            4: { id: 4, description: 'Unisex Khakhi Cap', image: 'https://th.bing.com/th/id/OIP.4c6WB5R11O_AZvHsLu1iTQHaHa?rs=1&pid=ImgDetMain', price: 'R250.00' },
+            5: { id: 5, description: 'Men\'s Formal Pants', image: 'https://th.bing.com/th/id/OIP.1SKJZwPVAVEFbiOZrBp2UQAAAA?w=208&h=283&c=7&r=0&o=5&dpr=1.3&pid=1.7', price: 'R760.00' },
+            6: { id: 6, description: 'Graphic T-shirt', image: 'https://th.bing.com/th/id/OIP.C0oG-QgU-H2OMROQqBRvSAHaLH?w=204&h=306&c=7&r=0&o=5&dpr=1.3&pid=1.7', price: 'R300.00' },
+            7: { id: 7, description: 'Black Leather Wallet', image: 'https://th.bing.com/th/id/OIP.A_RPiuw0MYGdvF3n3eZbKQHaHU?rs=1&pid=ImgDetMain', price: 'R175.00' },
+            8: { id: 8, description: 'Brown Cargo Pants', image: 'https://th.bing.com/th/id/OIP.1UBD-phOlMhrkm2W7T62oQHaJ3?w=208&h=277&c=7&r=0&o=5&dpr=1.3&pid=1.7', price: 'R600.00' },
+            9: { id: 9, description: 'Retro Gold Belt', image: 'https://th.bing.com/th/id/OPEC.vrJeiMNwf713Gg474C474?o=5&pid=21.1&w=160&h=164&dpr=1,3', price: 'R230.00' },
+            10: { id: 10, description: 'Men Sweater', image: 'https://n.nordstrommedia.com/id/sr3/c82a70d4-0e08-4653-984d-0649cd76f62e.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196', price: 'R430.00' },
+            11: { id: 11, description: 'Neutral Hoodie', image: 'https://th.bing.com/th/id/OIP.rPN5aZ4mROvx5-Cdtf5hpwHaHa?w=208&h=208&c=7&r=0&o=5&dpr=1.3&pid=1.7', price: 'R500.00' },
+            12: { id: 12, description: 'Silver Bollywood Necklace', image: 'https://th.bing.com/th/id/OIP.VtS858lYT3gsWcet8pZVYgHaGX?w=211&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7', price: 'R800.00' }
+        };
+
+        function initializeCart() {
+            if (!localStorage.getItem('cart')) {
+                localStorage.setItem('cart', JSON.stringify([]));
+            }
+        }
+
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            let productInCart = cart.find(item => item.id === productId);
+
+            if (productInCart) {
+                productInCart.quantity += 1;
+            } else {
+                cart.push({ id: productId, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Product added to cart!');
+        }
+
+        function viewCart() {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            if (cart.length === 0) {
+                alert('Your cart is empty.');
+                return;
+            }
+
+            let modal = document.createElement('div');
+            modal.classList.add('modal');
+            modal.innerHTML = '<h2>Your Cart</h2>';
+
+            cart.forEach(item => {
+                let product = products[item.id];
+                if (product) {
+                    modal.innerHTML += `
+                                <div class="modal-content">
+                                    <img src="${product.image}" alt="${product.description}" />
+                                    <div>
+                                        <p><strong>Description:</strong> ${product.description}</p>
+                                        <p><strong>Price:</strong> ${product.price}</p>
+                                        <p><strong>Quantity:</strong> ${item.quantity}</p>
+                                    </div>
+                                </div>
+                            `;
+                }
+            });
+
+            modal.innerHTML += '<button onclick="closeCart()">Close</button>';
+            document.body.appendChild(modal);
+        }
+
+        function closeCart() {
+            let modal = document.querySelector('.modal');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+
+        function editCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Product removed from cart!');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCart();
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Product items, ensure IDs match the `products` object above -->
+        <div class="image-item" data-category="hoodies">
+            <img src="https://cdna.lystit.com/photos/boohooman/a3624f80/boohooman-designer-black-Bonded-Scuba-Oversized-Hoodie.jpeg" alt="hoodie" />
+            <p>Unisex Hoodie</p>
+            <p>R500.00</p>
+            <button onclick="addToCart(1)">Add to Cart</button>
+            <button onclick="editCart(1)">Edit Details</button>
+            <button onclick="editCart(1)">Delete</button>
+        </div>
+        <div class="image-item" data-category="dresses">
+            <img src="https://cdn-img.prettylittlething.com/f/c/7/6/fc76e455c57c9c86d2b71019e9417aeb1d908e9a_cme1638_2.jpg" alt="dress" />
+            <p>Mini-Party Dress</p>
+            <p>R470.00</p>
+            <button onclick="addToCart(2)">Add to Cart</button>
+            <button onclick="editCart(2)">Edit Details</button>
+            <button onclick="editCart(2)">Delete</button>
+        </div>
+        <div class="image-item" data-category="jewelry">
+            <img src="https://th.bing.com/th/id/OIP.FnTW59ievY6thUNqGSGEWgAAAA?rs=1&pid=ImgDetMain" alt="necklace" />
+            <p>Silver Necklace</p>
+            <p>R250.00</p>
+            <button onclick="addToCart(3)">Add to Cart</button>
+            <button onclick="editCart(3)">Edit Details</button>
+            <button onclick="editCart(3)">Delete</button>
+        </div>
+        <div class="image-item" data-category="accessories">
+            <img src="https://th.bing.com/th/id/OIP.4c6WB5R11O_AZvHsLu1iTQHaHa?rs=1&pid=ImgDetMain" alt="cap" />
+            <p>Unisex Khakhi Cap</p>
+            <p>R250.00</p>
+            <button onclick="addToCart(4)">Add to Cart</button>
+            <button onclick="editCart(4)">Edit Details</button>
+            <button onclick="editCart(4)">Delete</button>
+        </div>
+        <div class="image-item" data-category="pants">
+            <img src="https://th.bing.com/th/id/OIP.1SKJZwPVAVEFbiOZrBp2UQAAAA?w=208&h=283&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="pants" />
+            <p>Men's Formal Pants</p>
+            <p>R760.00</p>
+            <button onclick="addToCart(5)">Add to Cart</button>
+            <button onclick="editCart(5)">Edit Details</button>
+            <button onclick="editCart(5)">Delete</button>
+        </div>
+        <div class="image-item" data-category="hoodies">
+            <img src="https://th.bing.com/th/id/OIP.C0oG-QgU-H2OMROQqBRvSAHaLH?w=204&h=306&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="graphic t-shirt" />
+            <p>Graphic T-shirt</p>
+            <p>R300.00</p>
+            <button onclick="addToCart(6)">Add to Cart</button>
+            <button onclick="editCart(6)">Edit Details</button>
+            <button onclick="editCart(6)">Delete</button>
+        </div>
+        <div class="image-item" data-category="accessories">
+            <img src="https://th.bing.com/th/id/OIP.A_RPiuw0MYGdvF3n3eZbKQHaHU?rs=1&pid=ImgDetMain" alt="wallet" />
+            <p>Black Leather Wallet</p>
+            <p>R175.00</p>
+            <button onclick="addToCart(7)">Add to Cart</button>
+            <button onclick="editCart(7)">Edit Details</button>
+            <button onclick="editCart(7)">Delete</button>
+        </div>
+        <div class="image-item" data-category="pants">
+            <img src="https://th.bing.com/th/id/OIP.1UBD-phOlMhrkm2W7T62oQHaJ3?w=208&h=277&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="cargo pants" />
+            <p>Brown Cargo Pants</p>
+            <p>R600.00</p>
+            <button onclick="addToCart(8)">Add to Cart</button>
+            <button onclick="editCart(8)">Edit Details</button>
+            <button onclick="editCart(8)">Delete</button>
+        </div>
+        <div class="image-item" data-category="accessories">
+            <img src="https://th.bing.com/th/id/OPEC.vrJeiMNwf713Gg474C474?o=5&pid=21.1&w=160&h=164&dpr=1,3" alt="belt" />
+            <p>Retro Gold Belt</p>
+            <P>R230.00</P>
+            <button onclick="addToCart(9)">Add to Cart</button>
+            <button onclick="editCart(9)">Edit Details</button>
+            <button onclick="editCart(9)">Delete</button>
+        </div>
+        <div class="image-item" data-category="hoodies">
+            <img src="https://n.nordstrommedia.com/id/sr3/c82a70d4-0e08-4653-984d-0649cd76f62e.jpeg?crop=pad&pad_color=FFF&format=jpeg&w=780&h=1196" alt="sweater" />
+            <p>Men Sweater</p>
+            <p>R430.00</p>
+            <button onclick="addToCart(10)">Add to Cart</button>
+            <button onclick="editCart(10)">Edit Details</button>
+            <button onclick="editCart(10)">Delete</button>
+        </div>
+        <div class="image-item" data-category="hoodies">
+            <img src="https://th.bing.com/th/id/OIP.rPN5aZ4mROvx5-Cdtf5hpwHaHa?w=208&h=208&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="hoodie" />
+            <p>Neutral Hoodie</p>
+            <P>R500.00</P>
+            <button onclick="addToCart(11)">Add to Cart</button>
+            <button onclick="editCart(11)">Edit Details</button>
+            <button onclick="editCart(11)">Delete</button>
+        </div>
+        <div class="image-item" data-category="jewelry">
+            <img src="https://th.bing.com/th/id/OIP.VtS858lYT3gsWcet8pZVYgHaGX?w=211&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="silver necklace" />
+            <p>Silver Bollywood Necklace</p>
+            <p>R800.00</p>
+            <button onclick="addToCart(12)">Add to Cart</button>
+            <button onclick="editCart(12)">Edit Details</button>
+            <button onclick="editCart(12)">Delete</button>
+        </div>
+    </div>
+
+    <form enctype="multipart/form-data" asp-action="UploadBlob">
+        <label>Select a file:</label>
+        <input type="file" name="file" />
+        <input type="submit" value="Upload" />
+    </form>
+
+    <br />
+    <form asp-action="DownloadBlob">
+        <label>Download file:</label>
+        <input type="text" name="blobName" placeholder="Blob name" />
+        <input type="submit" value="Download" />
+    </form>
+    <div>
+        <button onclick="viewCart()">View Cart</button>
+    </div>
+</body>
+</html>
+

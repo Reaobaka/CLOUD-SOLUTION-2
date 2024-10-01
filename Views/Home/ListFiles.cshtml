@@ -1,0 +1,236 @@
+﻿@model List<string>
+<style>
+    /* General Styles */
+    body {
+        background-color: #f9f9f9;
+        font-family: 'Nunito', sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .divider {
+        border-top: 1px solid #ddd;
+        margin: 40px 0;
+    }
+
+    /* Form Styles */
+    .form-upload {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .minimal-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .minimal-input {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        outline: none;
+        background-color: #fafafa;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        .minimal-input:focus {
+            background-color: #fff;
+            border-color: #45aaf2;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Button Styles */
+    .btn-minimal {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: antiquewhite;
+        color: #333;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+        .btn-minimal:hover {
+            background-color: #2d98da;
+            transform: translateY(-2px);
+        }
+
+    
+    .minimal-table {
+        width: 100%;
+        background-color: antiquewhite;
+        border-collapse: collapse;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        margin-bottom: 40px;
+    }
+
+        .minimal-table th, .minimal-table td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .minimal-table th {
+            background-color: antiquewhite;
+            color: #333;
+            font-weight: 500;
+            
+        }
+
+        .minimal-table td {
+            background-color: #fff;
+            color: #555;
+            
+        }
+
+        .minimal-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+            .minimal-table tr:hover {
+                background-color: #f0f0f5;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+    /* Alerts */
+    .alert {
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .alert-info {
+        background-color: #e3f2fd;
+        color: #1e88e5;
+    }
+
+    .alert-danger {
+        background-color: #ffebee;
+        color: #c62828;
+    }
+
+    .alert-warning {
+        background-color: #fff8e1;
+        color: #f57f17;
+    }
+
+    
+    .table td, .table th {
+        vertical-align: middle;
+        font-size: 1rem;
+    }
+
+   
+    a:hover {
+        text-decoration: none;
+    }
+
+</style>
+    <html>
+    <body>
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <!-- Title -->
+            <h2 class="text-center mb-4" style="font-family: 'Nunito', sans-serif; color: #333; letter-spacing: 1px;">
+                LOGS AND POLICIES 
+            </h2>
+
+            <!-- File Upload Section -->
+            <div class="upload-section">
+                <form enctype="multipart/form-data" asp-action="UploadFile" method="post" class="form-upload">
+                    <div class="form-group">
+                        <label for="fileUpload" class="minimal-label">Choose a file:</label>
+                        <input type="file" name="file" class="minimal-input" required />
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-minimal">
+                            <i class="fas fa-upload mr-2"></i>Upload
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <hr class="divider my-5" />
+
+            <!-- File List Section -->
+            @if (Model != null && Model.Count > 0)
+            {
+                <div class="file-list">
+                    <table class="minimal-table">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var fileName in Model)
+                            {
+                                <tr>
+                                    <td>@fileName</td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("DownloadFile", "File", new { fileName = fileName })" class="btn-minimal">
+                                            <i class="fas fa-download mr-2"></i>Download
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else if (ViewBag.Message != null)
+            {
+                <div class="alert alert-info text-center">
+                    @ViewBag.Message
+                </div>
+            }
+            else if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    No files available.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+</body>
+</html>

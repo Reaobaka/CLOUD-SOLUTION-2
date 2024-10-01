@@ -1,0 +1,109 @@
+﻿@model PART2.Models.CustomerProfiles
+
+<style>
+    body {
+        background-color: #FFFFFF; /* White background */
+        font-family: 'Arial', sans-serif; /* Clean, readable font */
+        color: #333333; /* Dark gray color for text */
+        padding: 20px; /* Padding around the body */
+    }
+
+    h2 {
+        text-align: center; /* Center the heading */
+        color: #333333; /* Dark gray color for the heading */
+        margin-bottom: 30px; /* Space below the heading */
+        font-size: 2em; /* Increased font size */
+        font-weight: bold; /* Bold font for emphasis */
+    }
+
+    .form-group {
+        width: 100%;
+        max-width: 400px; /* Maximum width for form groups */
+        margin: 20px auto; /* Center form groups */
+        background-color: rgba(255, 255, 255, 1); /* White background */
+        padding: 15px; /* Padding inside form groups */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    }
+
+    label {
+        font-weight: bold; /* Bold font for labels */
+        color: #333333; /* Dark gray color for labels */
+        margin-bottom: 5px; /* Space below labels */
+        display: block; /* Make labels block elements */
+    }
+
+    .form-control {
+        width: 100%; /* Full width for input fields */
+        padding: 12px; /* Increased padding for prominence */
+        border: 2px solid #D4CFC4; /* Slightly thicker soft gray border */
+        border-radius: 4px; /* Rounded corners for input fields */
+        background-color: #FAFAFA; /* Very light gray background for input fields */
+        color: #333333; /* Dark text for input fields */
+        font-size: 16px; /* Font size for input fields */
+        margin-top: 5px; /* Space between label and input */
+        transition: border-color 0.3s; /* Smooth transition for border color */
+    }
+
+        .form-control:focus {
+            outline: none; /* Remove outline on focus */
+            border-color: #D4AF37; /* Soft gold on focus */
+        }
+
+    .btn-primary {
+        display: block;
+        width: 100%; /* Full width button */
+        max-width: 400px; /* Maximum width for button */
+        margin: 20px auto; /* Center button */
+        padding: 12px; /* Padding inside button */
+        border-radius: 8px; /* Rounded corners for button */
+        background-color: antiquewhite; /* Soft gold color */
+        color: #333; /* White text for contrast */
+        font-weight: bold; /* Bold font for button text */
+        border: none; /* No border */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+        .btn-primary:hover {
+            background-color: #F1C40F; /* Brighter gold on hover */
+        }
+
+    .text-danger {
+        color: #A94442; /* Dark red color for validation messages */
+        font-size: 0.9em; /* Smaller font size for validation messages */
+        margin-top: 5px; /* Space above validation messages */
+    }
+</style>
+
+<h2>Edit Customer</h2>
+
+<form asp-action="Edit" method="post">
+    @Html.HiddenFor(model => model.RowKey)
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmailAddress"></label>
+        <input asp-for="EmailAddress" class="form-control" required />
+        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" required />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="HomeAddress"></label>
+        <input asp-for="HomeAddress" class="form-control" required />
+        <span asp-validation-for="HomeAddress" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

@@ -1,0 +1,133 @@
+﻿@model IEnumerable<PART2.Models.CustomerProfiles>
+
+<style>
+    body {
+        background-color: #f4f4f4; /* Light gray for contrast */
+        font-family: 'Georgia', serif; /* Elegant font for a royal feel */
+        color: #333; /* Dark text for readability */
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center; /* Center the heading */
+        color: dimgray; /* Deep purple for the heading */
+        margin-bottom: 30px; /* Space below the heading */
+        font-size: 2.5em; /* Increased font size for emphasis */
+        font-weight: bold; /* Bold font for importance */
+    }
+
+    .alert {
+        margin: 20px auto;
+        width: 80%;
+        max-width: 600px;
+        padding: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    }
+
+    .alert-success {
+        background-color: antiquewhite; /* Light green background for success messages */
+        color: lightgray; /* Dark green text */
+    }
+
+    .alert-danger {
+        background-color: #f8d7da; /* Light red background for error messages */
+        color: #721c24; /* Dark red text */
+    }
+
+    a {
+        color: #D4AF37; /* Soft gold color for links */
+        text-decoration: none; /* Remove underline from links */
+        font-weight: bold; /* Bold font for emphasis */
+    }
+
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse; /* Collapse borders for a cleaner look */
+        margin-top: 20px; /* Space above the table */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        background-color: white; /* White background for the table */
+        border-radius: 8px; /* Rounded corners */
+        overflow: hidden; /* Hide overflow for rounded corners */
+    }
+
+    th, td {
+        padding: 12px; /* Padding for table cells */
+        text-align: left; /* Align text to the left */
+        border-bottom: 1px solid #ddd; /* Light grey border for rows */
+    }
+
+    th {
+        background-color: antiquewhite; /* Deep purple background for header */
+        color: dimgray; /* White text for headers */
+        font-weight: bold; /* Bold font for headers */
+    }
+
+    tr:hover {
+        background-color: #f9f9f9; /* Light background on row hover */
+    }
+
+    .action-links {
+        display: flex; /* Use flexbox for horizontal layout */
+        gap: 10px; /* Space between action links */
+    }
+
+        .action-links a {
+            background-color: antiquewhite; /* Soft gold button color */
+            color: dimgray; /* White text for contrast */
+            padding: 5px 10px; /* Padding for buttons */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+            .action-links a:hover {
+                background-color: #F1C40F; 
+            }
+</style>
+
+<h2>Customer List</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<a href="@Url.Action("Create")" style="display: block; text-align: center; margin-bottom: 20px; color: #333; font-weight: bold; font-size: 1.2em;">Add New Customer</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name (First and Last)</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.EmailAddress</td>
+                <td>@customer.PhoneNumber</td>
+                <td>@customer.HomeAddress</td>
+                <td class="action-links">
+                    <a href="@Url.Action("Edit", new { rowKey = customer.RowKey})">Edit</a> |
+                    <a href="@Url.Action("Delete", new { rowKey = customer.RowKey})">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

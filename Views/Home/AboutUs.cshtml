@@ -1,0 +1,200 @@
+﻿@{
+    ViewData["Title"] = "AboutUs";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .text-block {
+            flex: 1; /* Takes up 50% of the available space */
+            padding: 10px;
+            background-color: #D3D3D3;
+            box-sizing: border-box; /* Ensures padding is included in the width */
+            display: flex;
+            align-items: center; /* Center-aligns the text vertically */
+            justify-content: center; /* Center-aligns the text horizontally */
+            position: relative;
+            flex-direction: column; /* Aligns text blocks vertically */
+            align-items: center; /* Aligns the text to the left */
+            justify-content: center; /* Centers the text vertically */
+            height: 250px; /* Sets the height to 100% of the viewport */
+            text-align: center; /* Aligns text to the left */
+        }
+
+
+
+            .text-block p {
+                margin: 0;
+                font-size: 1.2em;
+                line-height: 1.5;
+                color: white;
+                text-align: center;
+                font-weight: bold;
+            }
+
+        .image-block {
+            flex-shrink: 0;
+            max-width: 40%;
+        }
+
+            .image-block img {
+                flex: 1; /* Takes up 50% of the available space */
+                max-width: 50%; /* Ensures it does not exceed 50% of the container */
+                height: auto; /* Maintains aspect ratio */
+                object-fit: cover; /* Ensures the image covers its container */
+            }
+
+        .description-wrapper {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .description-text {
+            flex: 2; /* Takes up half of the remaining space */
+            background-color: #ffffff;
+            padding: 10px;
+            line-height: 1.5;
+            color: #333;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .additional-text-block {
+            background-color: #C1B9A7;
+            padding: 10px;
+            flex: 1; /* Takes up one-fourth of the total space */
+            height: 300px;
+        }
+
+        .before-description {
+            background-color: #A0A0A0;
+            padding: 10px;
+            height: 300px;
+            width: 200px;
+            overflow: hidden;
+            display: flex; /* Added to center content */
+            align-items: center; /* Center the rotated text vertically */
+            justify-content: center; /* Center the rotated text horizontally */
+        }
+
+            .before-description .rotated-text {
+                transform: rotate(-90deg); /* Rotate text counter-clockwise */
+                transform-origin: center; /* Set origin to center for proper rotation */
+                white-space: nowrap; /* Prevent text from wrapping */
+                display: block; /* Ensures the text behaves as a block element */
+                width: 100%; /* Adjust width to fit the rotated text */
+                height: 100%; /* Full height to contain rotated text */
+                text-align: center; /* Center text horizontally */
+                line-height: 1.5; /* Adjust line height for readability */
+            }
+
+            .before-description h3 {
+                margin: 0;
+                font-size: 1em;
+                line-height: 1.5;
+                color: #333;
+            }
+
+        .bottom {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .bottom-image {
+            flex: 1; /* Takes up 50% of the available space */
+            max-width: 50%; /* Ensures it does not exceed 50% of the container */
+            height: auto; /* Maintains aspect ratio */
+            object-fit: cover; /* Ensures the image covers its container */
+        }
+
+        .bottom-text {
+            flex: 1; /* Takes up 50% of the available space */
+            padding: 10px;
+            background-color: #4B4B4B;
+            box-sizing: border-box; /* Ensures padding is included in the width */
+            display: flex;
+            align-items: center; /* Center-aligns the text vertically */
+            justify-content: center; /* Center-aligns the text horizontally */
+            position: relative;
+            flex-direction: column; /* Aligns text blocks vertically */
+            align-items: center; /* Aligns the text to the left */
+            justify-content: center; /* Centers the text vertically */
+            height: 200px; /* Sets the height to 100% of the viewport */
+            text-align: center; /* Aligns text to the left */
+        }
+
+
+            .bottom-text p {
+                margin: 0;
+                font-size: 1em;
+                line-height: 1.5;
+                color: white;
+                text-align: center;
+            }
+
+    </style>
+</head>
+<body>
+
+
+    <div class="content-wrapper">
+        <div class="text-block">
+            <p>
+                Welcome to ABC Retail.<br>
+                A platform where you can<br />
+                find high-quality clothes,<br>
+                at reasonable prices.<br>Talk about bargain quality
+            </p>
+        </div>
+        <div class="image-block">
+            <img src="https://th.bing.com/th/id/OIP.og9Z3jOKZZEK7kqJwkYrMwHaHa?pid=ImgDet&w=184&h=184&c=7&dpr=1,3">
+        </div>
+    </div>
+
+    <div class="description-wrapper">
+        <div class="additional-text-block before-description">
+            <div class="rotated-text">
+                <h1>About Us</h1>
+            </div>
+        </div>
+        <div class="description-text">
+            ABC Retail was just a dream to Mrs. Ntoagae. The establishment of this business was a mere leap of faith.<br>
+            The business has grown exponentially over the past few years. Her team has had to increase in number month by month.<br>
+            All this has taken her by surprise and still is on a daily basis. After teaming up with the best entrepreneurs, they<br>
+            decided to launch this website. So if you are looking for the best quality apparel and a seamless online experience,<br>
+            head over to our products page and spoil your eyes and yourself.
+        </div>
+        <div class="additional-text-block">
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="bottom-image">
+            <img src="data:image/jpeg;base64,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" alt="pics">
+        </div>
+        <div class="bottom-text">
+            <p>
+                Our website ensures a problem-free experience.<br />
+                Enjoythe asthetic of our website.Help yourself<br />
+                to our beautiful <br />products with the best<br />
+                prices you've ever come across
+            </p>
+        </div>
+    </div>
+</body>
+</html>

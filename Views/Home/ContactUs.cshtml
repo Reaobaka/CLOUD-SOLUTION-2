@@ -1,0 +1,153 @@
+﻿@model PART2.Models.ContactUsModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+<style>
+    /* Container */
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+        height: 100vh; /* Full viewport height */
+        padding: 20px;
+        background-image: url('https://wallpaperaccess.com/full/3124511.jpg'); /* Background image URL */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        font-family: 'Garamond', serif; /* Classic serif font for elegance */
+    }
+
+        /* Overlay */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Darker overlay for subtle contrast */
+            z-index: -1;
+        }
+
+
+
+
+    /* Main Text Styling */
+    .main-text {
+        text-align: center; /* Center text for minimalism */
+        margin-top: 20px; /* Adjust margin for alignment */
+    }
+
+        .main-text p {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .main-text .larger-text {
+            font-size: 34px;
+            font-weight: bold;
+            color: white;
+        }
+
+    /* Form Styling */
+    .form-group {
+        width: 100%;
+        max-width: 400px;
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.6); /* Soft background for the form */
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3); /* Light shadow for minimalism */
+        color: white;
+        text-align: left; /* Align text left inside the form */
+    }
+
+    .form-control {
+        background-color: transparent;
+        color: white;
+        border: none;
+        border-bottom: 1px solid white; /* Soft white border */
+        padding: 10px;
+        font-size: 16px;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-bottom: 1px solid #D4AF37; /* Soft gold on focus */
+        }
+
+    button {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 8px;
+        background-color: #D4AF37; /* Soft gold color */
+        color: white; /* White text for contrast */
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        button:hover {
+            background-color: #F1C40F; /* Brighter gold on hover */
+        }
+
+    /* Alert Styling */
+    .alert {
+        width: 100%;
+        max-width: 400px;
+        color: white;
+        background-color: #D4AF37; /* Soft gold background */
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 20px; /* Adjust margin for spacing */
+    }
+</style>
+
+<div class="container">
+
+
+    <div class="main-text">
+        <p>
+            <b>RetailStore.inc</b><br />
+            <span class="larger-text">Hello<br /><span class="gold-text">Bonjour</span></span><br />
+        <p>Drop a message below</p>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+
+    <form asp-action="Index" method="post">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Message"></label>
+            <textarea asp-for="Message" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,140 @@
+﻿@model PART2.Models.CustomerProfiles
+<style>
+    body {
+        background-color: white; 
+        font-family: Arial, sans-serif;
+        color: white;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center; 
+        color: dimgray; 
+        margin-bottom: 30px; 
+        font-size: 2em; 
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+    }
+
+    .form-group {
+        width: 100%;
+        max-width: 450px; 
+        margin: 0 auto; 
+        background-color: rgba(0, 0, 0, 0.85); 
+        padding: 30px; 
+        border-radius: 10px; 
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); 
+        transition: all 0.3s ease; 
+    }
+
+        .form-group label {
+            font-weight: bold; /* Bold labels for better visibility */
+            display: block; /* Ensure labels are block elements */
+            margin-bottom: 10px; /* Space below labels */
+            font-size: 1.1em; /* Slightly larger label font */
+        }
+
+    .form-control {
+        width: 100%; /* Full width for inputs */
+        background-color: transparent;
+        color: white;
+        border: none;
+        border-bottom: 2px solid white; /* Thicker white border */
+        padding: 10px 5px; /* Added horizontal padding */
+        font-size: 16px;
+        transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-bottom: 2px solid #D4AF37; 
+            background-color: rgba(255, 255, 255, 0.1); /* Slight background color change on focus */
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7); /* Lighter placeholder text */
+        }
+
+        .form-control.error {
+            border-bottom: 2px solid #e74c3c; 
+        }
+
+    .error-message {
+        color: #e74c3c; 
+        font-size: 12px; 
+        margin-top: 5px; 
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        max-width: 450px; /* Slightly wider button */
+        margin: 20px auto 0; /* Center the button and add top margin */
+        padding: 12px;
+        border-radius: 8px;
+        background-color: lightgray; 
+        color: #333;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for background and scaling */
+        font-size: 1.1em; /* Larger button text for emphasis */
+    }
+
+        button:hover {
+            background-color: white; /* Brighter gold on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        button:active {
+            transform: translateY(0); /* Return to original position on click */
+        }
+
+    /* Using Flexbox for form layout */
+    .form-group > div {
+        display: flex;
+        flex-direction: column; /* Vertical stacking of form fields */
+        margin-bottom: 20px; /* Space between fields */
+    }
+
+    /* Adjust the form on smaller screens */
+    .form-group {
+        padding: 20px; /* Reduced padding for smaller screens */
+    }
+
+    h2 {
+        font-size: 1.5em; /* Smaller heading size on mobile */
+    }
+
+    button {
+        font-size: 1em; /* Smaller button text on mobile */
+    }
+
+</style>
+
+<h2>Create Customer</h2>
+
+<div class="form-group">
+    <form asp-action="Create" method="post">
+        <div>
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" placeholder="Enter full name" />
+            <span asp-validation-for="Name" class="error-message"></span>
+        </div>
+        <div>
+            <label asp-for="EmailAddress"></label>
+            <input asp-for="EmailAddress" class="form-control" placeholder="Enter email address" />
+            <span asp-validation-for="EmailAddress" class="error-message"></span>
+        </div>
+        <div>
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" />
+            <span asp-validation-for="PhoneNumber" class="error-message"></span>
+        </div>
+        <div>
+            <label asp-for="HomeAddress"></label>
+            <input asp-for="HomeAddress" class="form-control" placeholder="Enter home address" />
+            <span asp-validation-for="HomeAddress" class="error-message"></span>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</div>

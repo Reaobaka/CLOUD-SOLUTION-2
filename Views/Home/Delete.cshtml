@@ -1,0 +1,80 @@
+﻿@model PART2.Models.CustomerProfiles
+
+<style>
+    body {
+        background-color: #FFFFFF; /* White background */
+        font-family: 'Arial', sans-serif; /* Clean, readable font */
+        color: #333333; /* Dark gray color for text */
+        padding: 20px; /* Padding around the body */
+    }
+
+    h2 {
+        text-align: center; /* Center the heading */
+        color: #D32F2F; /* Dark red color for the heading */
+        margin-bottom: 30px; /* Space below the heading */
+        font-size: 2em; /* Increased font size */
+        font-weight: bold; /* Bold font for emphasis */
+    }
+
+    .form-group {
+        width: 100%;
+        max-width: 400px; /* Maximum width for form groups */
+        margin: 20px auto; /* Center form groups */
+        background-color: rgba(255, 255, 255, 1); /* White background */
+        padding: 15px; /* Padding inside form groups */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        text-align: center; /* Center text inside form */
+    }
+
+    p {
+        font-size: 1.2em; /* Slightly larger text for the message */
+        color: #333333; /* Dark gray color for paragraph text */
+        margin: 10px 0; /* Margin around paragraphs */
+    }
+
+    strong {
+        color: #D32F2F; /* Emphasized name in dark red */
+        font-size: 1.5em; /* Larger font for customer name */
+    }
+
+    button {
+        display: inline-block; /* Inline block for button layout */
+        width: 150px; /* Fixed width for buttons */
+        margin: 10px; /* Margin around buttons */
+        padding: 10px; /* Padding inside buttons */
+        border-radius: 8px; /* Rounded corners for buttons */
+        background-color: #D32F2F; /* Red color for delete button */
+        color: white; /* White text for contrast */
+        font-weight: bold; /* Bold font for button text */
+        border: none; /* No border */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+        button:hover {
+            background-color: #C62828; /* Darker red on hover */
+        }
+
+    .btn-secondary {
+        background-color: #6c757d; /* Gray color for cancel button */
+        color: white; /* White text for contrast */
+        border: none; /* No border */
+        text-decoration: none; /* No underline */
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray on hover */
+        }
+</style>
+
+<h2>Delete Customer</h2>
+<form asp-action="Delete" method="post">
+    @Html.HiddenFor(model => model.RowKey)
+    <div class="form-group">
+        <p>Are you sure you want to delete this customer?</p>
+        <p><strong>@Model.Name</strong></p>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
